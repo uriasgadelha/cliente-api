@@ -15,6 +15,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(unique = true)
     @NotEmpty(message = "{campo.login.obrigatorio}")
     private String username;
 
