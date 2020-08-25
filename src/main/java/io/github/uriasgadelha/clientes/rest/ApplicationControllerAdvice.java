@@ -41,5 +41,4 @@ public class ApplicationControllerAdvice {
 
         return new ResponseEntity(apiErrors, httpStatus);
     }
-
 }

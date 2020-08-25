@@ -3,6 +3,10 @@ package io.github.uriasgadelha.clientes.service;
 import io.github.uriasgadelha.clientes.exception.UsuarioCadastradoException;
 import io.github.uriasgadelha.clientes.model.entity.Usuario;
 import io.github.uriasgadelha.clientes.model.repository.UsuarioRepository;
+
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,4 +44,25 @@ public class UsuarioService implements UserDetailsService {
                 .build()
                 ;
     }
+
+	public List<String> listarNomeUsuarios() {
+		return usuarioRepository.listarUsuarios();		
+	}
+	
+	public List<String> listarRolesUsuario(String username) {
+		Usuario usuario = usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));		
+		
+		return Arrays.asList(usuario.getRoles().split(","));				
+	}
+	
+	public void alteraRolesUsuario(String username, String roles) {
+		Usuario usuario = usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
+		
+		usuario.setRoles(roles);
+		
+		usuarioRepository.save(usuario);
+	}
+	
 }
