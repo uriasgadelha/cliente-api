@@ -18,4 +18,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
             "from Usuario " +            
             "order by username ")
     List<String> listarUsuarios();
+    
+    List<Usuario> findAllByOrderByIdAsc();
 }

@@ -2,6 +2,7 @@ package br.com.clientes.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -64,5 +65,23 @@ public class UsuarioService implements UserDetailsService {
 		
 		usuarioRepository.save(usuario);
 	}
+
+	public List<Usuario> obterTodos() {
+		return usuarioRepository.findAllByOrderByIdAsc();
+	}
+	
+    public Optional<Usuario> getPorId(Integer id) {
+        return usuarioRepository
+                .findById(id);
+                
+    }
+    
+    public void deletar(Usuario usuario) {
+    	usuarioRepository.delete(usuario);
+    }
+    
+    public Usuario atualizar(Usuario usuario) {
+    	return usuarioRepository.save(usuario);
+    }
 	
 }
